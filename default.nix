@@ -1,9 +1,11 @@
 let
-  pkgs = import ./pkgs.nix;
+  sources = import ./nix/sources.nix;
+  pkgs = import sources.nixpkgs { };
   makeContainer = x: import x { inherit pkgs; };
 in
 with pkgs;
 {
+
   containers = {
     unifi = makeContainer ./unifi.nix;
 

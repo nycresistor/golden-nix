@@ -1,6 +1,7 @@
 { pkgs
 }:
 {
+  autoStart = true;
   macvlans = [ "tornet" ];
   nixpkgs = pkgs.path;
   config = { pkgs, lib, ... }: {

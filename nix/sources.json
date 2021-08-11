@@ -1,0 +1,38 @@
+{
+    "extra-container": {
+        "branch": "master",
+        "description": "Run declarative NixOS containers without full system rebuilds",
+        "homepage": null,
+        "owner": "erikarvstedt",
+        "repo": "extra-container",
+        "rev": "8609450239b26e85a7286d6987aedbe0f7989040",
+        "sha256": "1hcbi611vm0kn8rl7q974wcjkihpddan6m3p7hx8l8jnv18ydng8",
+        "type": "tarball",
+        "url": "https://github.com/erikarvstedt/extra-container/archive/8609450239b26e85a7286d6987aedbe0f7989040.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "e0ca65c81a2d7a4d82a189f1e23a48d59ad42070",
+        "sha256": "1pq9nh1d8nn3xvbdny8fafzw87mj7gsmp6pxkdl65w2g18rmcmzx",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/e0ca65c81a2d7a4d82a189f1e23a48d59ad42070.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixos-unstable",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "fff53fa030b0ae5beb6268a804c4cac114cce1c2",
+        "sha256": "01s997pkfngbpqgfgx830i62rvrfyfzrnh7x5dybz55sbr4b64qm",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/fff53fa030b0ae5beb6268a804c4cac114cce1c2.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

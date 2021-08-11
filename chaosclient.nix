@@ -1,6 +1,7 @@
 { pkgs
 }:
 {
+  autoStart = true;
   macvlans = [ "chaosvpn" ];
   nixpkgs = pkgs.path;
   config = { pkgs, lib, ... }: {
