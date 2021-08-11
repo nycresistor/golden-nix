@@ -4,7 +4,8 @@
   autoStart = true;
   macvlans = [ "chaosvpn" ];
   nixpkgs = pkgs.path;
-  config = { pkgs, lib, ... }: {
+  config = { ... }: {
+    nixpkgs.pkgs = pkgs;
     networking.firewall.enable = false;
     networking.useHostResolvConf = false;
     systemd.network = {

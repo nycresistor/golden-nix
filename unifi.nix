@@ -9,12 +9,9 @@
     };
   };
   nixpkgs = pkgs.path;
-  config = { pkgs, lib, ... }: {
-    nixpkgs.config = {
-      allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-        "unifi-controller"
-      ];
-    };
+  config = { ... }: {
+
+    nixpkgs.pkgs = pkgs;
 
     services.unifi = {
       enable = true;

@@ -4,11 +4,13 @@
   autoStart = true;
   macvlans = [ "tornet" "enp2s0" ];
   nixpkgs = pkgs.path;
-  config = { pkgs, lib, ... }: {
+
+  config = { ... }: {
+
+    nixpkgs.pkgs = pkgs;
 
     boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
-    environment.systemPackages = with pkgs; [ tcpdump ];
     services.dnsmasq = {
       enable = true;
       extraConfig = ''
