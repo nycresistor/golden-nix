@@ -27,5 +27,7 @@ with pkgs;
     torclient = makeContainer ./torclient.nix;
 
     chaosclient = makeContainer ./chaosclient.nix;
+
+    # nycmeshclient = makeContainer ./nycmeshclient.nix;
   };
 }
