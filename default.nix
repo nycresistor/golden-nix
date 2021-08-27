@@ -12,12 +12,12 @@ let
     config = {
       allowUnfreePredicate = pkg: builtins.elem (getName pkg) [
         "unifi-controller"
+        "ookla-speedtest"
       ];
     };
   };
   makeContainer = x: import x { inherit pkgs; };
 in
-with pkgs;
 {
 
   containers = {
@@ -26,8 +26,9 @@ with pkgs;
     torrouternix = makeContainer ./torrouter.nix;
     torclient = makeContainer ./torclient.nix;
 
+    coreclient = makeContainer ./coreclient.nix;
     chaosclient = makeContainer ./chaosclient.nix;
 
-    # nycmeshclient = makeContainer ./nycmeshclient.nix;
+    nycmeshclient = makeContainer ./nycmeshclient.nix;
   };
 }

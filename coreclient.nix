@@ -1,7 +1,7 @@
 { pkgs
 }:
 let
-  mv_nic = "nycmesh";
+  mv_nic = "enp2s0";
 in
 {
   autoStart = true;

@@ -1,18 +1,22 @@
 { pkgs
 }:
+let
+  mv_nic = "tornet";
+in
 {
   autoStart = true;
-  macvlans = [ "tornet" ];
+  macvlans = [ mv_nic ];
   nixpkgs = pkgs.path;
   config = { ... }: {
+    imports = [ ./includes/client.nix ];
     nixpkgs.pkgs = pkgs;
     networking.firewall.enable = false;
     networking.useHostResolvConf = false;
     systemd.network = {
       enable = true;
-      networks.mv-tornet = {
+      networks."mv-${mv_nic}" = {
         matchConfig = {
-          Name = "mv-tornet";
+          Name = "mv-${mv_nic}";
         };
         DHCP = "yes";
       };
