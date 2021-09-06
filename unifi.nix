@@ -12,7 +12,9 @@
   config = { ... }: {
 
     nixpkgs.pkgs = pkgs;
-
+    imports = [
+      ./includes/common.nix
+    ];
     services.unifi = {
       enable = true;
       unifiPackage = pkgs.unifiStable;

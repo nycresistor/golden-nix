@@ -8,7 +8,10 @@ in
   macvlans = [ mv_nic ];
   nixpkgs = pkgs.path;
   config = { ... }: {
-    imports = [ ./includes/client.nix ];
+    imports = [
+      ./includes/common.nix
+      ./includes/client.nix
+    ];
     nixpkgs.pkgs = pkgs;
     networking.firewall.enable = false;
     networking.useHostResolvConf = false;
