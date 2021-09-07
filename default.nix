@@ -29,6 +29,8 @@ in
     coreclient = makeContainer ./coreclient.nix;
     chaosclient = makeContainer ./chaosclient.nix;
 
+    linknycclient = makeContainer ./linknycclient.nix;
+
     nycmeshclient = makeContainer ./nycmeshclient.nix;
   };
 }
