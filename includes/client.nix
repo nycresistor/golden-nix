@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    speedtest-cli
+    # speedtest-cli
     ookla-speedtest
     tcpdump
     mtr
