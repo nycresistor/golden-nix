@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [ lldpd ];
+  environment.systemPackages = with pkgs; [
+    lldpd
+    htop
+    dstat
+  ];
   services.lldpd.enable = true;
 }
