@@ -9,6 +9,7 @@
     nmap
     curl
     wget
+    whois
   ];
 
 }
