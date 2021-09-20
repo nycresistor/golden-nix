@@ -13,11 +13,11 @@
 
     nixpkgs.pkgs = pkgs;
     imports = [
-      ./includes/common.nix
+      ../includes/common.nix
     ];
 
     users.users.unifi.group = "unifi";
-    users.groups.unifi = {};
+    users.groups.unifi = { };
 
     services.unifi = {
       enable = true;

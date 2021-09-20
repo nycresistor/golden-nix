@@ -9,7 +9,7 @@
 
     nixpkgs.pkgs = pkgs;
     imports = [
-      ./includes/common.nix
+      ../includes/common.nix
     ];
     boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 

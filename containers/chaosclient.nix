@@ -1,7 +1,7 @@
 { pkgs
 }:
 let
-  mv_nic = "tornet";
+  mv_nic = "chaosvpn";
 in
 {
   autoStart = true;
@@ -9,8 +9,8 @@ in
   nixpkgs = pkgs.path;
   config = { ... }: {
     imports = [
-      ./includes/common.nix
-      ./includes/client.nix
+      ../includes/common.nix
+      ../includes/client.nix
     ];
     nixpkgs.pkgs = pkgs;
     networking.firewall.enable = false;
