@@ -15,6 +15,10 @@
     imports = [
       ./includes/common.nix
     ];
+
+    users.users.unifi.group = "unifi";
+    users.groups.unifi = {};
+
     services.unifi = {
       enable = true;
       unifiPackage = pkgs.unifiStable;

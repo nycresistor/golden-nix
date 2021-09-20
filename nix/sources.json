@@ -1,14 +1,14 @@
 {
     "extra-container": {
-        "branch": "master",
+        "branch": "eval-changes",
         "description": "Run declarative NixOS containers without full system rebuilds",
         "homepage": null,
-        "owner": "erikarvstedt",
+        "owner": "georgyo",
         "repo": "extra-container",
-        "rev": "c55540a701dfa10249fac18ddaad09dd02e10a78",
-        "sha256": "1dvf0g8mrg5i487w26l4mvp5rn3kmqg9g6vs63xm0rl2ni5zi6bm",
+        "rev": "a713366c873dc146c4c89e4304e598626915038c",
+        "sha256": "0q11x3jwbqz3571wj6cn3j0kljgsnxb0khw53xm3csri0ir29y4j",
         "type": "tarball",
-        "url": "https://github.com/erikarvstedt/extra-container/archive/c55540a701dfa10249fac18ddaad09dd02e10a78.tar.gz",
+        "url": "https://github.com/georgyo/extra-container/archive/a713366c873dc146c4c89e4304e598626915038c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
