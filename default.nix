@@ -1,21 +1,6 @@
 let
   sources = import ./nix/sources.nix;
-  getName = x:
-    let
-      parse = drv: (builtins.parseDrvName drv).name;
-    in
-    if builtins.isString x
-    then parse x
-    else x.pname or (parse x.name);
-
-  pkgs = import sources.nixpkgs {
-    config = {
-      allowUnfreePredicate = pkg: builtins.elem (getName pkg) [
-        "unifi-controller"
-        "ookla-speedtest"
-      ];
-    };
-  };
+  pkgs = import ./pkgs.nix { inherit sources; };
   makeContainer = x: import x { inherit pkgs; };
 in
 {
