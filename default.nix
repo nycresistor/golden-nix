@@ -1,6 +1,5 @@
 let
-  sources = import ./nix/sources.nix;
-  pkgs = import ./pkgs.nix { inherit sources; };
+  pkgs = import ./pkgs.nix { };
   makeContainer = x: import x { inherit pkgs; };
   buildContainerList = path:
     let content = builtins.readDir path; in

@@ -15,5 +15,11 @@ import sources.nixpkgs {
       "ookla-speedtest"
     ];
   };
+  overlays = [
+    (self: super: {
+      extra-container = self.callPackage sources.extra-container { };
+      niv = (import sources.niv { inherit sources; pkgs = self; }).niv;
+    })
+  ];
 }
 
