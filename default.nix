@@ -10,7 +10,7 @@ let
             name = pkgs.lib.removeSuffix ".nix" n;
             value = makeContainer (path + ("/" + n));
           })
-        (builtins.filter (n: builtins.match ".*\\.nix" n != null || builtins.pathExists (builtins.path + ("/" + n + "/default.nix"))) (builtins.attrNames content))
+        (builtins.filter (n: builtins.match ".*\\.nix" n != null || builtins.pathExists (path + ("/" + n + "/default.nix"))) (builtins.attrNames content))
     );
 in
 {

@@ -1,0 +1,12 @@
+keys:
+  - &golden 73B3D1C4840927F5613FC6095F9FD44A71A8A4F2
+  - &georgyo 398939BCD1D44F97112CFA32906B16A5380AC9C7
+  - &mastadon age1njef9jaqxdp9p9vr70hhz35kny9z559jkg7fweusrnggeskpvuxsf8cvfh
+creation_rules:
+  - path_regex: secrets(/[^/]+)?\.yaml$
+    key_groups:
+    - pgp:
+      - *golden
+      - *georgyo
+      age:
+       - *mastadon

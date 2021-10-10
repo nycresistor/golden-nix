@@ -5,10 +5,10 @@
         "homepage": null,
         "owner": "erikarvstedt",
         "repo": "extra-container",
-        "rev": "31d7d643bdd376ff8418fd097c1b169d180a4578",
-        "sha256": "0q11x3jwbqz3571wj6cn3j0kljgsnxb0khw53xm3csri0ir29y4j",
+        "rev": "38f4db5944987d42b1e259305acd4b0af61f1609",
+        "sha256": "0iz366ddzm9b1rrm10xvz9jhyazmw8142scdrnfm98ymnar90sm1",
         "type": "tarball",
-        "url": "https://github.com/erikarvstedt/extra-container/archive/31d7d643bdd376ff8418fd097c1b169d180a4578.tar.gz",
+        "url": "https://github.com/erikarvstedt/extra-container/archive/38f4db5944987d42b1e259305acd4b0af61f1609.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -29,10 +29,22 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "31ffc50c571e6683e9ecc9dbcbd4a8e9914b4497",
-        "sha256": "1gg87k49rmdylmzxjzmllng78qr6wmssnci05z1kij3715wkqc5j",
+        "rev": "9bf75dd50b7b6d3ce6aaf6563db95f41438b9bdb",
+        "sha256": "0ii3z5v9p21la8gc8l136s5rax932awz7mk757jciai766lp2fhz",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/31ffc50c571e6683e9ecc9dbcbd4a8e9914b4497.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/9bf75dd50b7b6d3ce6aaf6563db95f41438b9bdb.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "sops-nix": {
+        "branch": "master",
+        "description": "Atomic secret provisioning for NixOS based on sops",
+        "homepage": "",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "2e86e1698d53e5bd71d9de5f8b7e8f2f5458633c",
+        "sha256": "0g5xv27s1sx87xxz2ipfi21sqksfmbvx9yn2i0lqb419aqqyks50",
+        "type": "tarball",
+        "url": "https://github.com/Mic92/sops-nix/archive/2e86e1698d53e5bd71d9de5f8b7e8f2f5458633c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
