@@ -31,7 +31,26 @@ in
 
     services.mastodon-bot = {
       enable = true;
-      configFile = config.sops.secrets.mastodon-bot-config.path;
+      authConfigFile = config.sops.secrets.mastodon-bot-config.path;
+      configFile = pkgs.writeText "mastodon-bot-config" ''
+        {
+          :transform [{
+            :source {
+              :source-type :rss
+              :feeds [
+                ["NYC Resistor Blog" "https://www.nycresistor.com/feed/"]
+              ]
+            }
+            :target {
+              :target-type :mastodon
+              :append-screen-name? false
+              :signature "#rssbot"
+            }
+            :resolve-urls? true
+            :replacements nil
+          }]
+        }
+      '';
     };
 
     nixpkgs.pkgs = pkgs;

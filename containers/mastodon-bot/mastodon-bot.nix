@@ -48,6 +48,13 @@ in
       description = ''
       '';
     };
+
+    authConfigFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = ''
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -74,6 +81,11 @@ in
         wantedBy = [ "multi-user.target" ];
         wants = [ "network-online.target" ];
         after = [ "network-online.target" ];
+        environment = {
+          MASTODON_BOT_CONFIG = cfg.configFile;
+          MASTODON_BOT_CREDENTIALS = cfg.authConfigFile;
+        };
+
 
         serviceConfig = {
           User = cfg.user;
@@ -95,7 +107,7 @@ in
           UMask = 0027;
 
           ExecStart = ''
-            ${cfg.package}/bin/mastodon-bot ${cfg.configFile}
+            ${cfg.package}/bin/mastodon-bot
           '';
         };
       };
