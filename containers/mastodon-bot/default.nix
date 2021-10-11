@@ -7,11 +7,12 @@ in
   autoStart = true;
   macvlans = [ mv_nic ];
   nixpkgs = pkgs.path;
-  config = { ... }: {
+  config = { config, ... }: {
     imports = [
       ../../includes/common.nix
       ../../includes/client.nix
       "${pkgs.niv_sources.sops-nix}/modules/sops"
+      ./mastodon-bot.nix
     ];
     sops = {
       age = {
@@ -20,11 +21,18 @@ in
       };
       defaultSopsFile = ./secrets.yaml;
       secrets = {
-        mastadon-bot-config = {};
+        mastodon-bot-config = {
+          mode = "0440";
+          owner = config.users.users.mastodon-bot.name;
+          group = config.users.users.mastodon-bot.group;
+        };
       };
     };
 
-
+    services.mastodon-bot = {
+      enable = true;
+      configFile = config.sops.secrets.mastodon-bot-config.path;
+    };
 
     nixpkgs.pkgs = pkgs;
     networking.firewall.enable = false;

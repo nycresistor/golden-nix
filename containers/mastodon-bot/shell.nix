@@ -1,5 +1,5 @@
 # shell.nix
-{ pkgs ? import ../../pkgs.nix { }}:
+{ pkgs ? import ../../pkgs.nix { } }:
 with pkgs;
 mkShell {
   # imports all files ending in .asc/.gpg
