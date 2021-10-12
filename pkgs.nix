@@ -18,8 +18,13 @@ import sources.nixpkgs {
   overlays = [
     (self: super: {
       extra-container = self.callPackage sources.extra-container { };
+
+      glorytun = self.callPackage ./packages/glorytun { };
+
       # niv = (import sources.niv { inherit sources; pkgs = self; }).niv;
+
       sops-nix = self.callPackage sources.sops-nix { };
+
       niv_sources = sources;
     })
   ];
