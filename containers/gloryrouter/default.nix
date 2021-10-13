@@ -4,6 +4,10 @@
   macvlans = [ "enp2s0" "nycmesh" "linknyc" ];
   nixpkgs = pkgs.path;
 
+  allowedDevices = [
+    { node = "/dev/net/tun"; modifier = "rwm"; }
+  ];
+
   config = { ... }: {
 
     nixpkgs.pkgs = pkgs;
@@ -16,17 +20,22 @@
     networking.useNetworkd = true;
     networking.useHostResolvConf = false;
 
+    environment.systemPackages = [ pkgs.glorytun ];
+
     systemd.services."glorytun@gtc-main" = {
 
       description = "A bridge between Matrix and Discord.";
 
-      wantedBy = [ "network-online.target" ];
-
+      wantedBy = [ "multi-user.target" ]; # "network-online.target" ];
+      after = [ "network.target" ];
+      environment = {
+        "DEV" = "gtc-main";
+      };
 
       serviceConfig =
         let
-          ExecPost = pkgs.writeScript "glorytun-post.sh" ''
-            DEV=$1
+          ExecPost = pkgs.writeShellScript "glorytun-post.sh" ''
+            set -x
             getSourceIP() {
               ${pkgs.iproute2}/bin/ip route get oif "$1" 172.104.15.252 \
                  | ${pkgs.gawk}/bin/awk '/src/{getline;print $0}' RS=' '
@@ -51,11 +60,11 @@
           # ProtectControlGroups = true;
           CapabilityBoundingSet = "CAP_NET_ADMIN";
 
-          PrivateTmp = true;
+          # PrivateTmp = true;
           ExecStart = ''
             ${pkgs.glorytun}/bin/glorytun bind 0.0.0.0 to 172.104.15.252 dev %i keyfile /root/glory.key chacha
           '';
-          postStart = ''
+          ExecStartPost = ''
             "${ExecPost}" %s
           '';
 
@@ -65,7 +74,7 @@
 
     systemd.network =
       let
-        tabledInterface = iface: table: {
+        tabledInterface = iface: inet: table: {
           matchConfig = {
             Name = iface;
           };
@@ -80,6 +89,12 @@
                 Table = table;
               };
             }
+            {
+              routingPolicyRuleConfig = {
+                From = inet;
+                Table = table;
+              };
+            }
           ];
           dhcpV4Config = {
             RouteTable = table;
@@ -91,9 +106,9 @@
       in
       {
         enable = true;
-        networks.mv-enp2s0 = tabledInterface "mv-enp2s0" 51;
-        networks.mv-nycmesh = tabledInterface "mv-nycmesh" 52;
-        networks.mv-linknyc = tabledInterface "mv-linknyc" 53;
+        networks.mv-enp2s0 = tabledInterface "mv-enp2s0" "192.168.0.0/24" 51;
+        networks.mv-nycmesh = tabledInterface "mv-nycmesh" "10.255.255.0/24" 52; # Actual subnet unknown
+        networks.mv-linknyc = tabledInterface "mv-linknyc" "192.168.89.0/24" 53;
         networks.gtc-main = {
           matchConfig = {
             Name = "gtc-main";
