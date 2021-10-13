@@ -1,6 +1,11 @@
-{ lib, stdenv, fetchFromGitHub
-, pkg-config, autoreconfHook
-, libsodium, iproute2 }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, pkg-config
+, autoreconfHook
+, libsodium
+, iproute2
+}:
 
 stdenv.mkDerivation rec {
   pname = "glorytun";
