@@ -4,7 +4,19 @@ let
 in
 with pkgs;
 mkShell {
-  nativeBuildInputs = [ extra-container nixos-container niv ];
+  nativeBuildInputs = [
+    extra-container
+    nixos-container
+    niv
+    sops-nix.sops-import-keys-hook
+  ];
+
+  sopsPGPKeyDirs = [
+    "./keys/hosts"
+    "./keys/users"
+  ];
+
+
   shellHook = ''
     export NIX_PATH="nixpkgs=${sources.nixpkgs}"
     export LOCALE_ARCHIVE_2_27=${pkgs.glibcLocales}/lib/locale/locale-archive
