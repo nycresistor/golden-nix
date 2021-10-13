@@ -12,6 +12,8 @@
       ../../includes/client.nix
     ];
     boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
+    networking.useNetworkd = true;
     networking.useHostResolvConf = false;
 
     systemd.network =
@@ -19,6 +21,9 @@
         tabledInterface = iface: table: {
           matchConfig = {
             Name = iface;
+          };
+          linkConfig = {
+            RequiredForOnline = false;
           };
           DHCP = "yes";
           routingPolicyRules = [
