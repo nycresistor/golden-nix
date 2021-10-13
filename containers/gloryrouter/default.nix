@@ -28,10 +28,12 @@
           ExecPost = pkgs.writeScript "glorytun-post.sh" ''
             DEV=$1
             getSourceIP() {
-              ip route get oif "$1" 172.104.15.252
+              ${pkgs.iproute2}/bin/ip route get oif "$1" 172.104.15.252 \
+                 | ${pkgs.gawk}/bin/awk '/src/{getline;print $0}' RS=' '
             }
             for i in mv-enp2s0 mv-nycmesh mv-linknyc; do 
               SRC=$(getSourceIP $i)
+
               ${pkgs.glorytun}/bin/glorytun path up "$SRC" dev "$DEV" rate rx 12500000 tx 12500000
             done
             exit 0
@@ -42,11 +44,11 @@
           Restart = "always";
           RestartSec = 600;
 
-          ProtectSystem = "strict";
-          ProtectHome = true;
-          ProtectKernelTunables = true;
-          ProtectKernelModules = true;
-          ProtectControlGroups = true;
+          # ProtectSystem = "strict";
+          # ProtectHome = true;
+          # ProtectKernelTunables = true;
+          # ProtectKernelModules = true;
+          # ProtectControlGroups = true;
           CapabilityBoundingSet = "CAP_NET_ADMIN";
 
           PrivateTmp = true;
