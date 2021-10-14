@@ -97,7 +97,7 @@ let
       oif = pathCfg.outboundInterfaceName;
       serviceName = pathUnitServiceName dev oif;
       preScript = ''
-        SRC=$(${pkgs.iproute2}/bin/ip route get oif "$1" "${glorytunInterfaceConfig.remoteAddress}" | ${pkgs.gawk}/bin/awk '/src/{getline;print $0}' RS=' ')
+        SRC=$(${pkgs.iproute2}/bin/ip route get oif "${oif}" "${glorytunInterfaceConfig.remoteAddress}" | ${pkgs.gawk}/bin/awk '/src/{getline;print $0}' RS=' ')
       '';
     in
     nameValuePair "glorytun-${dev}-path-${oif}" {

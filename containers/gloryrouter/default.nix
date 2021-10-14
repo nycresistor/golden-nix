@@ -59,9 +59,9 @@
           matchConfig = {
             Name = iface;
           };
-          linkConfig = {
-            RequiredForOnline = false;
-          };
+          # linkConfig = {
+          #   RequiredForOnline = false;
+          # };
           DHCP = "yes";
           routingPolicyRules = [
             {
