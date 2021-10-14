@@ -15,6 +15,7 @@
       ../../includes/common.nix
       ../../includes/client.nix
       ./users.nix
+      ../../includes/glorytun.nix
     ];
 
     boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
@@ -24,53 +25,31 @@
 
     environment.systemPackages = [ pkgs.glorytun ];
 
-    systemd.services."glorytun@gtc-main" = {
+    networking.glorytun = {
+      enable = true;
 
-      description = "A bridge between Matrix and Discord.";
-
-      wantedBy = [ "multi-user.target" ]; # "network-online.target" ];
-      after = [ "network.target" ];
-      environment = {
-        "DEV" = "gtc-main";
-      };
-
-      serviceConfig =
-        let
-          ExecPost = pkgs.writeShellScript "glorytun-post.sh" ''
-            set -x
-            getSourceIP() {
-              ${pkgs.iproute2}/bin/ip route get oif "$1" 172.104.15.252 \
-                 | ${pkgs.gawk}/bin/awk '/src/{getline;print $0}' RS=' '
+      interfaces = {
+        gtc-main = {
+          keyFile = "/root/glory.key";
+          remoteAddress = "172.104.15.252";
+          chacha = true;
+          paths = [
+            {
+              outboundInterfaceName = "enp2s0";
+              autoRate = true;
             }
-            for i in mv-enp2s0 mv-nycmesh mv-linknyc; do 
-              SRC=$(getSourceIP $i)
-
-              ${pkgs.glorytun}/bin/glorytun path up "$SRC" dev "$DEV" rate rx 12500000 tx 12500000
-            done
-            exit 0
-          '';
-        in
-        {
-          Type = "simple";
-          Restart = "always";
-          RestartSec = 600;
-
-          # ProtectSystem = "strict";
-          # ProtectHome = true;
-          # ProtectKernelTunables = true;
-          # ProtectKernelModules = true;
-          # ProtectControlGroups = true;
-          CapabilityBoundingSet = "CAP_NET_ADMIN";
-
-          # PrivateTmp = true;
-          ExecStart = ''
-            ${pkgs.glorytun}/bin/glorytun bind 0.0.0.0 to 172.104.15.252 dev %i keyfile /root/glory.key chacha
-          '';
-          ExecStartPost = ''
-            "${ExecPost}" %s
-          '';
-
+            {
+              outboundInterfaceName = "nycmesh";
+              autoRate = true;
+            }
+            {
+              outboundInterfaceName = "linknyc";
+              autoRate = true;
+            }
+          ];
         };
+
+      };
 
     };
 
