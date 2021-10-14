@@ -35,15 +35,15 @@
           chacha = true;
           paths = [
             {
-              outboundInterfaceName = "enp2s0";
+              outboundInterfaceName = "mv-enp2s0";
               autoRate = true;
             }
             {
-              outboundInterfaceName = "nycmesh";
+              outboundInterfaceName = "mv-nycmesh";
               autoRate = true;
             }
             {
-              outboundInterfaceName = "linknyc";
+              outboundInterfaceName = "mv-linknyc";
               autoRate = true;
             }
           ];
@@ -59,9 +59,9 @@
           matchConfig = {
             Name = iface;
           };
-          # linkConfig = {
-          #   RequiredForOnline = false;
-          # };
+          linkConfig = {
+            RequiredForOnline = false;
+          };
           DHCP = "yes";
           routingPolicyRules = [
             {
