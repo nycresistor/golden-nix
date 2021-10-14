@@ -14,7 +14,9 @@
     imports = [
       ../../includes/common.nix
       ../../includes/client.nix
+      ./users.nix
     ];
+
     boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
     networking.useNetworkd = true;
@@ -92,6 +94,12 @@
             {
               routingPolicyRuleConfig = {
                 From = inet;
+                Table = table;
+              };
+            }
+            {
+              routingPolicyRuleConfig = {
+                To = inet;
                 Table = table;
               };
             }
