@@ -1,7 +1,7 @@
 { pkgs }:
 {
   autoStart = true;
-  macvlans = [ "enp2s0" "nycmesh" "linknyc" ];
+  macvlans = [ "enp2s0" "nycmesh" "linknyc" "enp0s29f7u1" ];
   nixpkgs = pkgs.path;
 
   allowedDevices = [
@@ -45,6 +45,11 @@
             {
               outboundInterfaceName = "mv-linknyc";
               autoRate = true;
+            }
+            {
+              outboundInterfaceName = "mv-enp0s29f7u1";
+              autoRate = true;
+              backup = true;
             }
           ];
         };
@@ -94,8 +99,9 @@
       {
         enable = true;
         networks.mv-enp2s0 = tabledInterface "mv-enp2s0" "192.168.0.0/24" 51;
-        networks.mv-nycmesh = tabledInterface "mv-nycmesh" "10.255.255.0/24" 52; # Actual subnet unknown
+        networks.mv-nycmesh = tabledInterface "mv-nycmesh" "10.70.179.0/24" 52;
         networks.mv-linknyc = tabledInterface "mv-linknyc" "192.168.89.0/24" 53;
+        networks.mv-enp0s29f7u1 = tabledInterface "mv-enp0s29f7u1" "192.168.1.0/24" 54;
         networks.gtc-main = {
           matchConfig = {
             Name = "gtc-main";
