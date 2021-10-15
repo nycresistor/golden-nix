@@ -14,16 +14,25 @@
     imports = [
       ../../includes/common.nix
       ../../includes/client.nix
-      ./users.nix
+      ../../includes/users.nix
       ../../includes/glorytun.nix
     ];
+
+    security.sudo.wheelNeedsPassword = false;
+
+    services.openssh = {
+      enable = true;
+      permitRootLogin = "no";
+      passwordAuthentication = false;
+      authorizedKeysFiles = pkgs.lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
+    };
 
     boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
     networking.useNetworkd = true;
     networking.useHostResolvConf = false;
 
-    environment.systemPackages = [ pkgs.glorytun ];
+    programs.mosh.enable = true;
 
     networking.glorytun = {
       enable = true;
@@ -111,11 +120,11 @@
           addresses = [
             {
               addressConfig = {
-                Address = "192.168.91.2";
-                Peer = "192.168.91.1";
+                Address = "192.168.91.2/30";
               };
             }
           ];
+
         };
       };
   };
