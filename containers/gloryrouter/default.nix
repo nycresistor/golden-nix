@@ -1,7 +1,7 @@
 { pkgs }:
 {
   autoStart = true;
-  macvlans = [ "enp2s0" "nycmesh" "linknyc" "enp0s29f7u1" ];
+  macvlans = [ "enp2s0" "nycmesh" "linknyc" "enp0s29f7u1" "glory" ];
   nixpkgs = pkgs.path;
 
   allowedDevices = [
@@ -16,6 +16,8 @@
       ../../includes/client.nix
       ../../includes/users.nix
       ../../includes/glorytun.nix
+      ./monitoring.nix
+      ./nginx.nix
     ];
 
     security.sudo.wheelNeedsPassword = false;
@@ -73,9 +75,9 @@
           matchConfig = {
             Name = iface;
           };
-          linkConfig = {
-            RequiredForOnline = false;
-          };
+          #linkConfig = {
+          #  RequiredForOnline = false;
+          #};
           DHCP = "yes";
           routingPolicyRules = [
             {
@@ -111,6 +113,20 @@
         networks.mv-nycmesh = tabledInterface "mv-nycmesh" "10.70.179.0/24" 52;
         networks.mv-linknyc = tabledInterface "mv-linknyc" "192.168.89.0/24" 53;
         networks.mv-enp0s29f7u1 = tabledInterface "mv-enp0s29f7u1" "192.168.1.0/24" 54;
+        networks.mv-glory = {
+          matchConfig = { Name = "mv-glory"; };
+          address = [ "192.168.90.1/24" ];
+          networkConfig = {
+            DHCPServer = "yes";
+            IPMasquerade = "yes";
+          };
+
+          dhcpServerConfig = {
+            PoolOffset = 50;
+            EmitDNS = "yes";
+            DNS = [ "1.1.1.1" "8.8.8.8" "9.9.9.9" ];
+          };
+        };
         networks.gtc-main = {
           matchConfig = {
             Name = "gtc-main";

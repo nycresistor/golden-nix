@@ -156,13 +156,16 @@ let
             [ "${values.bindAddress}" ]
             ++ optional (values.bindPort != null) ''${bindPort}''
           );
-          remoteStr = concatStringsSep " " ([ ]
-            ++ optional (values.remoteAddress != null) ''to ${values.remoteAddress}''
-            ++ optional (values.remotePort != null) ''${values.remotePort}'');
+          remoteStr = optional (values.remoteAddress != null) (concatStringsSep " " (
+            [ ''to ${values.remoteAddress}'' ]
+            ++ optional (values.remotePort != null) ''${values.remotePort}''
+          ));
           setup = concatStringsSep " " (
-            [ ''exec ${cfg.package}/bin/glorytun bind ${bindStr} ${remoteStr}'' ]
+            [ ''exec ${cfg.package}/bin/glorytun bind ${bindStr}'' ]
+            ++ remoteStr
             ++ [ ''dev ${name} keyfile ${values.keyFile}'' ]
             ++ optional (values.chacha) "chacha"
+            ++ [ ''persist'' ]
           );
         in
         ''
