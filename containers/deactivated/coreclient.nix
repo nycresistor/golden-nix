@@ -1,7 +1,7 @@
 { pkgs
 }:
 let
-  mv_nic = "enp2s0";
+  mv_nic = "enp3s0";
 in
 {
   autoStart = true;

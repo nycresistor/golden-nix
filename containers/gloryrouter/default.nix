@@ -1,7 +1,7 @@
 { pkgs }:
 {
   autoStart = true;
-  macvlans = [ "enp2s0" "nycmesh" "linknyc" "enp0s29f7u1" "glory" ];
+  macvlans = [ "enp3s0" "nycmesh" "linknyc" "enp0s29f7u1" "glory" ];
   nixpkgs = pkgs.path;
 
   allowedDevices = [
@@ -36,6 +36,12 @@
 
     programs.mosh.enable = true;
 
+    services.miniupnpd = {
+      enable = true;
+      internalIPs = [ "mv-glory" ];
+      externalInterface = "gtc-main";
+    };
+
     networking.glorytun = {
       enable = true;
 
@@ -46,7 +52,7 @@
           chacha = true;
           paths = [
             {
-              outboundInterfaceName = "mv-enp2s0";
+              outboundInterfaceName = "mv-enp3s0";
               autoRate = true;
             }
             {
@@ -109,7 +115,7 @@
       in
       {
         enable = true;
-        networks.mv-enp2s0 = tabledInterface "mv-enp2s0" "192.168.0.0/24" 51;
+        networks.mv-enp3s0 = tabledInterface "mv-enp3s0" "192.168.0.0/24" 51;
         networks.mv-nycmesh = tabledInterface "mv-nycmesh" "10.70.179.0/24" 52;
         networks.mv-linknyc = tabledInterface "mv-linknyc" "192.168.89.0/24" 53;
         networks.mv-enp0s29f7u1 = tabledInterface "mv-enp0s29f7u1" "192.168.1.0/24" 54;

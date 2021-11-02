@@ -2,7 +2,7 @@
 }:
 {
   autoStart = true;
-  macvlans = [ "tornet" "enp2s0" ];
+  macvlans = [ "tornet" "enp3s0" ];
   nixpkgs = pkgs.path;
 
   config = { ... }: {
@@ -99,9 +99,9 @@
     };
     systemd.network = {
       enable = true;
-      networks.mv-enp2s0 = {
+      networks.mv-enp3s0 = {
         matchConfig = {
-          Name = "mv-enp2s0";
+          Name = "mv-enp3s0";
         };
         DHCP = "yes";
       };
