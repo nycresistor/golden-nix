@@ -10,7 +10,6 @@ in
   config = { config, ... }: {
     imports = [
       ../../includes/common.nix
-      ../../includes/client.nix
       "${pkgs.niv_sources.sops-nix}/modules/sops"
       ./mastodon-bot.nix
     ];

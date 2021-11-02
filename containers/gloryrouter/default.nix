@@ -13,8 +13,6 @@
     nixpkgs.pkgs = pkgs;
     imports = [
       ../../includes/common.nix
-      ../../includes/client.nix
-      ../../includes/users.nix
       ../../includes/glorytun.nix
       ./monitoring.nix
       ./nginx.nix
@@ -81,9 +79,10 @@
           matchConfig = {
             Name = iface;
           };
-          #linkConfig = {
-          #  RequiredForOnline = false;
-          #};
+          linkConfig = {
+            RequiredForOnline = false;
+            ActivationPolicy = "always-up";
+          };
           DHCP = "yes";
           routingPolicyRules = [
             {

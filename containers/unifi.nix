@@ -24,6 +24,8 @@
       unifiPackage = pkgs.unifiStable;
       dataDir = "/mnt/unifidata";
     };
+
+    services.openssh.enable = false;
     networking.firewall.enable = false;
   };
 }

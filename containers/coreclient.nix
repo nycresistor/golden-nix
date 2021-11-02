@@ -10,7 +10,6 @@ in
   config = { ... }: {
     imports = [
       ../includes/common.nix
-      ../includes/client.nix
     ];
     nixpkgs.pkgs = pkgs;
     networking.firewall.enable = false;
