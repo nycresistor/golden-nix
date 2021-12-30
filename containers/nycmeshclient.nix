@@ -20,6 +20,10 @@ in
         matchConfig = {
           Name = "mv-${mv_nic}";
         };
+        linkConfig = {
+          RequiredForOnline = false;
+          ActivationPolicy = "always-up";
+        };
         DHCP = "yes";
       };
     };

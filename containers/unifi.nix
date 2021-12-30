@@ -3,9 +3,9 @@
 {
   autoStart = true;
   bindMounts = {
-    "/mnt/unifidata" = {
+    "/var/lib/unifi/data" = {
       isReadOnly = false;
-      hostPath = "/var/lib/unifi/";
+      hostPath = "/var/lib/unifi";
     };
   };
   nixpkgs = pkgs.path;
@@ -22,7 +22,7 @@
     services.unifi = {
       enable = true;
       unifiPackage = pkgs.unifiStable;
-      dataDir = "/mnt/unifidata";
+      # dataDir = "/mnt/unifidata";
     };
 
     services.openssh.enable = false;

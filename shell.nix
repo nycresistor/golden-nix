@@ -18,7 +18,7 @@ mkShell {
 
 
   shellHook = ''
-    export NIX_PATH="nixpkgs=${sources.nixpkgs}"
+    export NIX_PATH="nixpkgs=${sources.nixpkgs}:nixos=${sources.nixpkgs}/nixos"
     export LOCALE_ARCHIVE_2_27=${pkgs.glibcLocales}/lib/locale/locale-archive
   '';
 }

@@ -43,7 +43,6 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICeqLNkVX0zY6jjD3I3mRdGu3RhZj627CQWWuPSXDgbK"
       ];
     };
-  };
     djbeadle = {
       isNormalUser = true;
       createHome = true;
