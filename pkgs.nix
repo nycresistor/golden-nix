@@ -19,6 +19,8 @@ import sources.nixpkgs {
     (self: super: {
       extra-container = self.callPackage sources.extra-container { };
 
+      mlvpn = self.callPackage ./packages/mlvpn { };
+
       glorytun = self.callPackage ./packages/glorytun { };
 
       # niv = (import sources.niv { inherit sources; pkgs = self; }).niv;
