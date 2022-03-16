@@ -20,6 +20,8 @@
 
     security.sudo.wheelNeedsPassword = false;
 
+    environment.systemPackages = with pkgs; [ mlvpn ];
+
     services.openssh = {
       enable = true;
       permitRootLogin = "no";
