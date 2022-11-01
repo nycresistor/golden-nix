@@ -20,13 +20,17 @@
     curl
     wget
     whois
+
+    iptables-nftables-compat
   ];
   services.lldpd.enable = true;
+
+  networking.firewall.package = pkgs.iptables-nftables-compat;
 
   nix = {
     package = pkgs.nixUnstable;
     extraOptions = ''
-      experimental-features = nix-command flakes ca-references
+      experimental-features = nix-command flakes
     '';
   };
 

@@ -63,14 +63,15 @@
         ];
         ControlPort = 9051;
         CookieAuthentication = true;
-        SocksPort = [ "9050" ];
+        SOCKSPort = [ { port = "9050"; } ];
         SocksPolicy = [ "accept 192.168.0.0/16" "accept 127.0.0.0/8" "reject *" ];
       };
     };
     networking.useHostResolvConf = false;
+    networking.enableIPv6 = false;
     networking.firewall = {
       enable = true;
-      allowPing = true;
+      allowPing = false;
       extraCommands = ''
         #iptables -t nat -A PREROUTING -i mv-tornet -p udp -m udp --dport 53 -j REDIRECT --to-ports 53
         #iptables -t nat -A PREROUTING -i mv-tornet -p tcp -j REDIRECT --to-ports 9040
