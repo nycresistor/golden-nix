@@ -1,13 +1,19 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    extra-container.url = "github:erikarvstedt/extra-container";
-    extra-container.inputs.nixpkgs.follows = "nixpkgs";
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";    
+    extra-container = {
+      url = "github:erikarvstedt/extra-container";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, extra-container, nixpkgs, ... }@inputs:
+  outputs = { self, extra-container, nixpkgs, flake-utils, ... }@inputs:
 
     let
       localOverlay = final: prev: {
@@ -17,7 +23,7 @@
       };
 
     in
-    extra-container.inputs.flake-utils.lib.eachSystem extra-container.lib.supportedSystems (system: {
+    flake-utils.lib.eachSystem extra-container.lib.supportedSystems (system: {
       overlay = localOverlay;
 
       packages.default = extra-container.lib.buildContainers {
