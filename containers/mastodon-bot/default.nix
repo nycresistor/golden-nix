@@ -1,5 +1,4 @@
-{ pkgs
-}:
+{ pkgs }:
 let
   mv_nic = "enp3s0";
 in
@@ -10,7 +9,7 @@ in
   config = { config, ... }: {
     imports = [
       ../../includes/common.nix
-      "${pkgs.sops-nix-dir}/modules/sops"
+      "${pkgs.inputs.sops-nix}/modules/sops"
       ./mastodon-bot.nix
     ];
     sops = {

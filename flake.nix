@@ -13,8 +13,7 @@
       localOverlay = final: prev: {
         glorytun = final.callPackage ./packages/glorytun { };
         mlvpn = final.callPackage ./packages/mlvpn { };
-        sops-nix = final.callPackage inputs.sops-nix { };
-        sops-nix-dir = inputs.sops-nix;
+        inherit inputs;
       };
 
     in
