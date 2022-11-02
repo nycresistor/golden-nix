@@ -15,10 +15,10 @@
         mlvpn = final.callPackage ./packages/mlvpn { };
         sops-nix = final.callPackage inputs.sops-nix { };
         sops-nix-dir = inputs.sops-nix;
- };
+      };
 
-
-     in extra-container.inputs.flake-utils.lib.eachSystem extra-container.lib.supportedSystems (system: {
+    in
+    extra-container.inputs.flake-utils.lib.eachSystem extra-container.lib.supportedSystems (system: {
       overlay = localOverlay;
 
       packages.default = extra-container.lib.buildContainers {
@@ -27,20 +27,13 @@
 
         config.containers =
           let
-            getName = x:
-              let
-                parse = drv: (builtins.parseDrvName drv).name;
-              in
-              if builtins.isString x
-              then parse x
-              else x.pname or (parse x.name);
             pkgs = import nixpkgs {
               inherit system;
               overlays = [
                 localOverlay
               ];
               config = {
-                allowUnfreePredicate = pkg: builtins.elem (getName pkg) [
+                allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
                   "unifi-controller"
                   "ookla-speedtest"
                 ];
