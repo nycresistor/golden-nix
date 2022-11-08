@@ -45,4 +45,28 @@
 
   programs.mosh.enable = true;
 
+  services.journald.extraConfig = ''
+    SystemMaxUse=1G
+  '';
+
+  services.resolved = {
+    dnssec = "true";
+
+    extraConfig = ''
+      DNS=1.1.1.1#cloudflare-dns.com 8.8.8.8#dns.google 1.0.0.1#cloudflare-dns.com 8.8.4.4#dns.google 2606:4700:4700::1111#cloudflare-dns.com 2001:4860:4860::8888#dns.google 2606:4700:4700::1001#cloudflare-dns.com  2001:4860:4860::8844#dns.google
+      MulticastDNS=yes
+      DNSOverTLS=yes
+    '';
+
+    fallbackDns = [
+      "1.1.1.1#cloudflare-dns.com"
+      "8.8.8.8#dns.google"
+      "1.0.0.1#cloudflare-dns.com"
+      "8.8.4.4#dns.google"
+      "2606:4700:4700::1111#cloudflare-dns.com"
+      "2001:4860:4860::8888#dns.google"
+      "2606:4700:4700::1001#cloudflare-dns.com"
+      "2001:4860:4860::8844#dns.google"
+    ];
+  };
 }
