@@ -63,7 +63,7 @@
         ];
         ControlPort = 9051;
         CookieAuthentication = true;
-        SOCKSPort = [ { port = "9050"; } ];
+        SOCKSPort = [{ port = "9050"; }];
         SocksPolicy = [ "accept 192.168.0.0/16" "accept 127.0.0.0/8" "reject *" ];
       };
     };
