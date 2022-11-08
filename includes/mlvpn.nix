@@ -223,12 +223,14 @@ in
   };
 
   config = mkIf cfg.enable (
-    let all_paths = flatten
-      (mapAttrsToList
-        (mlvpnInterfaceName: mlvpnInterfaceConfig:
-          map (pathCfg: { inherit mlvpnInterfaceName mlvpnInterfaceConfig pathCfg; }) mlvpnInterfaceConfig.paths
-        )
-        cfg.interfaces); in
+    let
+      all_paths = flatten
+        (mapAttrsToList
+          (mlvpnInterfaceName: mlvpnInterfaceConfig:
+            map (pathCfg: { inherit mlvpnInterfaceName mlvpnInterfaceConfig pathCfg; }) mlvpnInterfaceConfig.paths
+          )
+          cfg.interfaces);
+    in
     {
       environment.systemPackages = [ cfg.package ]; # if user should have the command available as well
 
