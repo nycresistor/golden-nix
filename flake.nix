@@ -13,7 +13,7 @@
     };
   };
 
-  outputs = { self, extra-container, nixpkgs, flake-utils, ... }@inputs:
+  outputs = { self, extra-container, nixpkgs, flake-utils, sops-nix, ... }@inputs:
 
     let
       localOverlay = final: prev: {
@@ -22,9 +22,36 @@
         inherit inputs;
       };
 
+      nixpkgsFor = system: import nixpkgs {
+        inherit system;
+        overlays = [
+          sops-nix.overlay
+          localOverlay
+        ];
+        config = {
+          allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
+            "unifi-controller"
+            "ookla-speedtest"
+          ];
+        };
+      };
+
+
     in
     flake-utils.lib.eachSystem extra-container.lib.supportedSystems (system: {
       overlay = localOverlay;
+
+
+      devShells.default = with (nixpkgsFor system); mkShell {
+        nativeBuildInputs = [
+          sops-import-keys-hook
+        ];
+
+        sopsPGPKeyDirs = [
+          "./keys/hosts"
+          "./keys/users"
+        ];
+      };
 
       packages.default = extra-container.lib.buildContainers {
         # The system of the container host
@@ -32,18 +59,7 @@
 
         config.containers =
           let
-            pkgs = import nixpkgs {
-              inherit system;
-              overlays = [
-                localOverlay
-              ];
-              config = {
-                allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-                  "unifi-controller"
-                  "ookla-speedtest"
-                ];
-              };
-            };
+            pkgs = nixpkgsFor system;
             makeContainer = x: import x { inherit pkgs; };
             buildContainerList = path:
               let content = builtins.readDir path; in
